@@ -1,8 +1,4 @@
-// Uncomment this to see the example spec test pass. Delete if you don't need it!
-// var helloWorld = function(){
-//   return false;
-// };
-
+var globals = {liIds:0, accounts:[]};
 
 function Account(fullName, balance) {
   this.fullName = fullName;
@@ -16,48 +12,43 @@ Account.prototype.withdrawal = function(amount){
 Account.prototype.deposit = function(amount){
   this.balance += amount;
 }
-// Contact.prototype.fullName = function() {
-//   return this.firstName + " " + this.lastName;
-// }
-
-
-var globals = {liIds:0};
 
 $(document).ready(function() {
-
   $("form#new-account").submit(function(event) {
     event.preventDefault();
     var inputtedFullName = $("input#new-name").val();
-    var inputtedInitialDeposit = $("input#initial-deposit").val();
+    var inputtedInitialDeposit = parseInt($("input#initial-deposit").val());
     var newAccount = new Account(inputtedFullName, inputtedInitialDeposit);
 
-    globals.liIds++ // increment the id
-
-    $("ul#accounts").append("<li><span class='contact' id='hover"+globals.liIds+"'>" + newAccount.fullName + "</span></li>");
-
-    // $("#hover"+globals.liIds).hover( function(){
-    //   console.log("test");
-    //   $(this).append($("<span> ***</span>"));
-    // }, function (){
-    //   $(this).find("span:last").remove();
-    // });
-
+    $("ul#accounts").append("<li><span class='contact' id='account"+globals.liIds+"'>" + newAccount.fullName + "</span></li>");
     clearInput();
+    $(".contact").last().click(function(e) {
+      var foo = e.toElement.getAttribute("id");
 
-    $(".contact").last().click(function() {
-      $("#show-contact").show();
-      $("#show-contact h2").text(newContact.fullName());
-      $(".first-name").text(newContact.firstName);
-      $(".last-name").text(newContact.lastName);
-      $("ul#addresses").text("");
-      newContact.address.forEach(function(address){
-        $("ul#addresses").append("<li>" + address.fullAddress() + "</li>");
+      console.log(foo);
+
+      $("#show-account").show();
+      $(".buttonDiv").empty();
+      $("#show-account h2").text(newAccount.fullName);
+      $(".balance").text(newAccount.balance);
+      $(".buttonDiv").append("<button id='"+foo+"'>Withdrawal</button>")
+      $('#'+foo).last().click(function() {
+        console.log(this);
       });
+
+      // $(".testButton").prop("value", globals.liIds);
     });
     $('.contactAddress').not($(".contactAddress")[0]).remove();
+    globals.accounts.push(newAccount);
+    globals.liIds++ // increment the id
   });
-});
 
+  $(".testButton").click(function(){
+    newAccount.withdrawal(100);
+    $(".balance").text(newAccount.balance);
+    console.log(newAccount);
+  })
+});
 
 function clearInput() {
   $("input#new-first-name").val("");
