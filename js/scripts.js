@@ -4,25 +4,22 @@
 // };
 
 
-function Contact(firstName, lastName, street, city, state) {
-  this.firstName = firstName;
-  this.lastName = lastName;
-  this.address = [];
+function Account(fullName, balance) {
+  this.fullName = fullName;
+  this.balance = balance;
 }
 
-function Address(street, city, state) {
-  this.street = street;
-  this.city = city;
-  this.state = state;
+Account.prototype.withdrawal = function(amount){
+  this.balance += amount * -1;
 }
 
-Contact.prototype.fullName = function() {
-  return this.firstName + " " + this.lastName;
+Account.prototype.deposit = function(amount){
+  this.balance += amount;
 }
+// Contact.prototype.fullName = function() {
+//   return this.firstName + " " + this.lastName;
+// }
 
-Address.prototype.fullAddress = function() {
-  return this.street + " " + this.city + " " + this.state;
-}
 
 var globals = {liIds:0};
 

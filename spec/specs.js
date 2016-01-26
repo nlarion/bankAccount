@@ -5,27 +5,24 @@
 //   });
 // });
 
-describe('Contact', function(){
-  it("creates new contact with given properties", function(){
-  var testContact = new Contact("James","Beard");
-  expect(testContact.firstName).to.equal("James");
-  expect(testContact.lastName).to.equal("Beard");
-  });
-
-  it("adds the fullName method to all contacts", function() {
-    var testContact = new Contact("Martha","Stewart");
-    expect(testContact.fullName()).to.equal("Martha Stewart");
+describe('Account', function(){
+  it("creates new account with given properties", function(){
+  var testAccount = new Account("Jonathon",400);
+  expect(testAccount.fullName).to.equal("Jonathon");
+  expect(testAccount.balance).to.equal(400);
   });
 });
-describe('Address', function(){
-  it("creates new address with given properties", function(){
-  var testAddress = new Address("123 St","Portland","Oregon");
-  expect(testAddress.street).to.equal("123 St");
-  expect(testAddress.city).to.equal("Portland");
-  expect(testAddress.state).to.equal("Oregon");
+describe('Withdrawal', function(){
+  it("removes amount given from balance", function(){
+  var testAccount = new Account("Jonathon",400);
+  testAccount.withdrawal(100);
+  expect(testAccount.balance).to.equal(300);
   });
-  // it("adds fullAddress method to all addresses", function(){
-  //   var testAddress = new Address("123 Main St, Portland, Oregon");
-  //   expect(testAddress.fullAddress()).to.equal("123 Main St, Portland, Oregon");
-  // });
+});
+describe('Deposit', function(){
+  it("adds amount given to balance", function(){
+  var testAccount = new Account("Jonathon",400);
+  testAccount.deposit(100);
+  expect(testAccount.balance).to.equal(500);
+  });
 });
