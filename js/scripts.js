@@ -23,17 +23,22 @@ $(document).ready(function() {
     $("ul#accounts").append("<li><span class='contact' id='account"+globals.liIds+"'>" + newAccount.fullName + "</span></li>");
     clearInput();
     $(".contact").last().click(function(e) {
-      var foo = e.toElement.getAttribute("id");
-
-      console.log(foo);
-
+      var account = e.toElement.getAttribute("id");
+      account = account.replace(/account/g,"");
       $("#show-account").show();
       $(".buttonDiv").empty();
       $("#show-account h2").text(newAccount.fullName);
       $(".balance").text(newAccount.balance);
-      $(".buttonDiv").append("<button id='"+foo+"'>Withdrawal</button>")
-      $('#'+foo).last().click(function() {
-        console.log(this);
+      $(".buttonDiv").append("<input type='text' class='form-control' id='amount'><button id='w"+account+"'>Withdrawal</button><button id='d"+account+"'>Deposit</button>")
+      $('#w'+account).last().click(function() {
+        var amount = parseInt($('#amount').val());
+        globals.accounts[account].withdrawal(amount);
+        $(".balance").text(globals.accounts[account].balance);
+      });
+      $('#d'+account).last().click(function() {
+        var amount = parseInt($('#amount').val());
+        globals.accounts[account].deposit(amount);
+        $(".balance").text(globals.accounts[account].balance);
       });
 
       // $(".testButton").prop("value", globals.liIds);
